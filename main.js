@@ -1,10 +1,9 @@
+var goodAnswersindexes= [];
+var answerButtons = document.getElementsByClassName('answerButton');
+var score = 0;
 var names= [];
-var capitales = [];
-var flags = [];
-var countryIndexes = [...Array(250).keys()];
-var excludecountryIndexes = [];
-
-
+  var capitales = [];
+  var flags = [];
 
 window.onload = function() {
 
@@ -16,7 +15,13 @@ window.onload = function() {
   var prevButton = document.getElementById("prev");
   var nextButton = document.getElementById("next");
   var carousel = document.getElementById("QuizCarousel");
+  
 
+  
+  var countryIndexes = [...Array(250).keys()];
+  var excludecountryIndexes = [];
+  
+ 
 
   //---------------Fetching Data of 10 random countries------------------------
   for (let i = 0; i < 10; i++) {
@@ -56,11 +61,11 @@ window.onload = function() {
       slide.id ="slide"+i;
 
       var card = document.createElement("div");
-      card.setAttribute("class","card");
+      card.classList.add("card","d-block","w-75","h-100","mx-auto","bg-dark");
       slide.appendChild(card);
 
       var flag = document.createElement("img");
-      flag.setAttribute("class","card-img-top");
+      flag.classList.add("card-img-top","h-75");
       flag.setAttribute("src","images/flags/"+flags[i]+".svg");
       card.appendChild(flag);
 
@@ -68,14 +73,10 @@ window.onload = function() {
       cardBody.setAttribute("class","card-body","bg-dark");
       card.appendChild(cardBody);
 
-      var countryName = document.createElement("h5");
-      countryName.innerHTML= "<h5 class='card-title'>"+names[i]+"</h5>"
-      cardBody.appendChild(countryName);
-
       var answerGrid = document.createElement("div");
       answerGrid.classList.add("container","text-center");
       var row = document.createElement("div");
-      row.classList.add("row","g-3");
+      row.classList.add("row","g-3","text-light");
       answerGrid.appendChild(row);
 
       var answerIndex = [...Array(flags.length).keys()];
@@ -89,17 +90,16 @@ window.onload = function() {
         col.classList.add("col-6");
         
         var answer = document.createElement("button");
-        answer.classList.add("btn","btn-outline-dark","w-100");
-        answer.id ="answer"+j;
-
-        
+        answer.classList.add("btn","btn-outline-light","w-100", "answerButton");
+        answer.setAttribute("onclick","checkAnswer("+i+","+j+")");
         randNb = randomNumber(answerIndex,excludeAnswerIndexes);
 
         if(j===correctAnswerIndex){
-          answer.innerText = capitales[i];
+          answer.innerText = names[i];
+          goodAnswersindexes.push(j);
         }
         else{
-          answer.innerText = capitales[randNb];
+          answer.innerText = names[randNb];
         }
         col.appendChild(answer);
         row.appendChild(col);
@@ -110,10 +110,8 @@ window.onload = function() {
 
     var scoreSlide = document.createElement("div");
     scoreSlide.setAttribute("class","carousel-item");
-    scoreSlide.innerText ="Score : ";
-
-    
-     
+    scoreSlide.innerHTML ="<h1 class='text-light' id='score'></h1>";
+    carousel.appendChild(scoreSlide);
   }
 
   prevButton.onclick = function(){
@@ -122,6 +120,7 @@ window.onload = function() {
   nextButton.onclick = function(){
     $("#QuizCarousel").carousel('next')
   }
+
 }
 
 function randomNumber(indexes,excludeIndexes){
@@ -134,5 +133,26 @@ function randomNumber(indexes,excludeIndexes){
   return randNb
 }
 
+function carouselNext(time){
+  setTimeout(() => {$("#QuizCarousel").carousel("next")}, time);
+}
 
+function checkAnswer(QuestionIndex,AnswerIndex){
 
+  if(AnswerIndex==goodAnswersindexes[QuestionIndex]){
+    console.log("bonne rep");
+    answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="green";
+    score ++;
+    
+  }else {
+    
+    answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="red";
+    answerButtons[QuestionIndex*4+goodAnswersindexes[QuestionIndex]].style.backgroundColor="green";
+    carouselNext(2000);
+    }
+    for (i = QuestionIndex*4 ; i < QuestionIndex*4+4 ; i++){
+      answerButtons[i].disabled =true;
+    }
+    carouselNext(2000);
+    document.getElementById('score').innerHTML = "Votre score : "+score + "/"+flags.length;
+}
