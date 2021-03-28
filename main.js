@@ -140,7 +140,6 @@ function carouselNext(time){
 function checkAnswer(QuestionIndex,AnswerIndex){
 
   if(AnswerIndex==goodAnswersindexes[QuestionIndex]){
-    console.log("bonne rep");
     answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="green";
     score ++;
     
