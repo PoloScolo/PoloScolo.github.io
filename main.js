@@ -114,12 +114,12 @@ window.onload = function() {
     carousel.appendChild(scoreSlide);
   }
 
-  prevButton.onclick = function(){
+  /*prevButton.onclick = function(){
     $("#QuizCarousel").carousel('prev')
   }  
   nextButton.onclick = function(){
     $("#QuizCarousel").carousel('next')
-  }
+  }*/
 
 }
 
