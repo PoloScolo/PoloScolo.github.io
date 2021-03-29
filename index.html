@@ -1,7 +1,10 @@
 <html>
     
     <head>
-        <title>GeoGame</title>
+        <title>Geonomy</title>
+
+        <meta charset="utf-8" />
+
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
 
         <script src="jquery\jquery.min.js"></script>
@@ -10,9 +13,62 @@
 
     </head>
 
-    <body class="bg-dark">
+    <body class="bg-dark overflow-hidden">
 
-        <button id="start" style="position: absolute;top: 0;left: 50%;">Start</button>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand mx-auto" href="../index.html">  Geonomy</a>
+        </nav>
+        
+        <div id="menu" class="container w-50 mx-auto mt-5">
+            <div class="row-8 ">
+                <div class="w-100 mx-auto">
+                    <button id="flagQuiz" onclick="showParameters(FlagQuizParameter)" class="btn btn-success w-100  mx-auto ">FLAG QUIZ</button>
+                    <div id="FlagQuizParameter" class="w-75 mx-auto quizParameters bg-success  p-4 mb-2 rounded" style="display: none;">
+                        <div class="form-group">
+                            <label for="continent" class="text-light">Continents</label></br>
+                            <select class="form-control" name="Continents" id="continentFlag">
+                                <option selected>All</option>
+                                <option>Africa</option>
+                                <option>Americas</option>
+                                <option>Asia</option>
+                                <option>Europe</option>
+                                <option>Oceania</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nbOfCapital"  class="text-light">Nombre de question : </label></br>
+                            <input type="range" class="form-control-range w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="25" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
+                            <span id="rangevalFlag" class="text-light">15<!-- Default value --></span>
+                        </div>
+                        <button id="StartFlagQuiz" class="btn btn-primary w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
+                    </div>
+                </div>
+
+                <!--
+                <div class="w-100 mx-auto">
+                    <button id="CapitalQuiz" onclick="showParameters(CapitalQuizParameter)" class="btn btn-danger w-100  mx-auto">CAPITAL QUIZ</button>
+                    <div id="CapitalQuizParameter" class="w-75 mx-auto quizParameters bg-danger  p-4 mb-2" style="display: none;">
+                        <div class="form-group">
+                            <label for="continent" class="text-light">Continents</label></br>
+                            <select class="form-control" name="Continents">
+                                <option selected>All</option>
+                                <option>Europe</option>
+                                <option>Asia</option>
+                                <option>America</option>
+                                <option>Africa</option>
+                                <option>Oceania</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nbOfCapital"  class="text-light">Nombre de question : </label></br>
+                            <input type="range" class="form-control-range w-100" id="nbOfCapital" name="nbOfCapital" min="5" max="25" step="5" onInput="$('#rangevalCapital').html(parseInt($(this).val()))">
+                            <span id="rangevalCapital" class="text-light">15</span>
+                        </div>
+                        <button id="StartCapitalQuiz" class="btn btn-primary w-100  mx-auto">Start</button>
+                    </div>
+                </div>-->
+            </div>
+        </div>
         
         <div id="QuizCarousel" class="carousel slide mt-5"></div>
 
@@ -20,7 +76,9 @@
         <button id="prev" style="position: absolute;top: 0;left: 0;">PREV</button>
         <button id="next" style="position: absolute;top: 0;right: 0;">NEXT</button>
         -->
-
+        <footer class="text-center w-100" style="position: fixed;bottom: 0%;">
+            <p class="text-light">PoloScolo © - 2021</p>
+        </footer>
     </body>
 
 </html>
