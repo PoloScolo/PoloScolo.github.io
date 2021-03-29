@@ -1,0 +1,12 @@
+.quizMenu{
+    height :38px;
+    overflow: hidden;
+    transition-duration: 700ms;}
+
+.quizMenu:hover{
+    height: 250;}
+
+.quizParameters{
+    background-color: #f5f0e5;
+}
+

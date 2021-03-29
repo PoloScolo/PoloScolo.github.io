@@ -26,12 +26,18 @@ window.onload = function() {
 
 function showParameters(quizParametersDiv){
 
-  quizParameters=document.getElementsByClassName('quizParameters');
+  /*quizParameters=document.getElementsByClassName('quizParameters');
   for(var i= 0;i<quizParameters.length;i++){
     quizParameters[i].style.display ="none";
-  }
+  }*/
   quizParametersDiv.style.display ="block";
 }
+
+function hideParameters(quizParametersDiv){
+  quizParametersDiv.style.display ="none";
+}
+
+
 
   
   
