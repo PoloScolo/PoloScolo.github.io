@@ -1,8 +1,8 @@
-var goodAnswersindexes= [];
+var goodAnswersindexes;
 var score = 0;
 var names= [];
-var capitales = [];
-var flags = [];
+var capitales;
+var flags ;
 var status = 0;
 var counterValue = 1;
 var region;
@@ -46,6 +46,12 @@ function hideParameters(quizParametersDiv){
 
  //--------------------------Fetch Data for flag->Country Quiz--------------------------//
 async function fetchFlagCountryData(nbOfQuestion,Region){
+
+  names= [];
+ flags= []; 
+ goodAnswersindexes= [];
+ counterValue=1;
+  score=0;
 
   region=Region;
 
@@ -121,6 +127,8 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
 
     console.log("creation of the Flag->Country Carousel");
     var carousel = document.getElementById("QuizCarousel");
+    console.log("emptying the carousel");
+    carousel.innerHTML="";
 
     var counter = document.createElement("h1");
     
@@ -170,7 +178,9 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
         
         var answer = document.createElement("button");
         answer.classList.add("btn","btn-outline-light","w-100", "answerButton");
+        answer.setAttribute("style","height:60px");
         answer.setAttribute("onclick","checkAnswer("+i+","+j+")");
+        
         randNb = randomNumber(answerIndex,excludeAnswerIndexes);
 
         if(j===correctAnswerIndex){

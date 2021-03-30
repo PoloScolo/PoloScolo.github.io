@@ -1,82 +1,93 @@
 <html>
     
     <head>
-        <title>Geonomy</title>
+        <title>Geopardy</title>
 
         <meta charset="utf-8" />
 
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
 
-        
-
     </head>
 
     <body class="bg-dark overflow-hidden">
 
-        <nav class="navbar navbar-light bg-light">
-            <a class="navbar-brand mx-auto" href="../index.html">  Geonomy</a>
-        </nav>
-        
-        <div id="menu" class="container mx-auto mt-5">
+       
+        <nav class="navbar navbar-dark mx-3 p-2" style='border-bottom:2px solid #ccc'>
+            <div class="container-fluid">
 
-            <div class="row-12"></div>
+                <!------------------------------- LOGO ------------------------------->
 
-                <div class="col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto mb-3 quizMenu">
-                    <button id="flagQuiz"  class="btn btn btn-light w-100  mx-auto ">FLAG QUIZ &#127937</button>
-                    <div id="FlagQuizParameter" class=" mx-auto quizParameters p-4 mb-2 rounded-bottom" style=" width: 95%">
-                        <div class="form-group mb-2">
-                            <label for="continent" class="text-dark">Continents</label></br>
-                            <select class="form-control" name="Continents" id="continentFlag">
-                                <option selected>All</option>
-                                <option>Africa</option>
-                                <option>Americas</option>
-                                <option>Asia</option>
-                                <option>Europe</option>
-                                <option>Oceania</option>
-                            </select>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label for="nbOfCapital"  class="text-dark">Number of flag : </label>
-                            <span id="rangevalFlag" class="text-dark">15</span></br>
-                            <input type="range" class="form-control-range w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="25" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
-                        </div>
-                        <button id="StartFlagQuiz" class="btn btn-primary w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
-                    </div>
-                </div>
+                <a class="navbar-brand" href="../index.html">
+                    <img src="images/earth2.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GEOPARDY 
+                </a>
+
+                <!------------------------------- QUIZES ------------------------------->
+
+                <div id="quizContainer" class="d-flex justify-content-between" style="width: 400px;">
+
+                    <!------------------------------- FLAG QUIZ ------------------------------->
                 
-               <!--<div class="col-sm-10 col-md-8 col-lg-6 col-xl-4 mx-auto quizMenu">
-                    <button id="flagQuiz"  class="btn btn btn-light w-100  mx-auto ">CAPITAL QUIZ &#127937</button>
-                    <div id="CapitaleQuizParameter" class=" mx-auto quizParameters p-4 mb-2 rounded-bottom" style=" width: 95%">
-                        <div class="form-group mb-2">
-                            <label for="continent" class="text-dark">Continents</label></br>
-                            <select class="form-control" name="Continents" id="continentFlag">
-                                <option selected>All</option>
-                                <option>Africa</option>
-                                <option>Americas</option>
-                                <option>Asia</option>
-                                <option>Europe</option>
-                                <option>Oceania</option>
-                            </select>
+                    <div class="quizMenu mx-2">
+                        <a id="flagQuiz" class="nav-link text-light text-center ">FLAG QUIZ</a>
+
+                        <div id="FlagQuizParameter" class="quizParameters bg-dark">
+                            <div class="form-group mb-2">
+                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <select class="form-control bg-dark text-light" name="Continents" id="continentFlag">
+                                    <option class="text-light" selected>All</option>
+                                    <option class="text-light" >Africa</option>
+                                    <option class="text-light" >Americas</option>
+                                    <option class="text-light" >Asia</option>
+                                    <option class="text-light" >Europe</option>
+                                    <option class="text-light" >Oceania</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="nbOfCapital" class="text-light">Number of flag : </label>
+                                <span id="rangevalFlag" class="text-light">10</span></br>
+                                <input type="range" class="w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="20" value="10" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
+                            </div>
+                            <button id="StartFlagQuiz" class="btn btn-outline-light w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
                         </div>
-                        <div class="form-group mb-3">
-                            <label for="nbOfCapital"  class="text-dark">Number of capital : </label>
-                            <span id="rangevalFlag" class="text-dark">15</span></br>
-                            <input type="range" class="form-control-range w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="25" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
-                        </div>
-                        <button id="StartFlagQuiz" class="btn btn-primary w-100  mx-auto">Start</button>
                     </div>
-                </div>-->
+
+                    <!------------------------------- CAPITAL QUIZ ------------------------------->
+
+                    <div class="quizMenu mx-2">
+                        <a id="capitalQuiz" class="nav-link text-light text-center ">CAPITAL QUIZ</a>
+
+                        <div id="CapitalQuizParameter" class="quizParameters bg-dark">
+                            <div class="form-group mb-2">
+                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <select class="form-control bg-dark text-light" name="Continents" id="continentFlag">
+                                    <option class="text-light" selected>All</option>
+                                    <option class="text-light" >Africa</option>
+                                    <option class="text-light" >Americas</option>
+                                    <option class="text-light" >Asia</option>
+                                    <option class="text-light" >Europe</option>
+                                    <option class="text-light" >Oceania</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="nbOfCapital" class="text-light">Number of capital : </label>
+                                <span id="rangevalCapital" class="text-light">10</span></br>
+                                <input type="range" class="w-100" id="nbOfCapital" name="nbOfCapital" min="5" max="20" value="10" step="5" onInput="$('#rangevalCapital').html(parseInt($(this).val()))">
+                            </div>
+                            <button id="StartCapitalQuiz" class="btn btn-outline-light w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
+                        </div>
+                    </div>
+
+                </div>
 
             </div>
-        </div>
+        </nav>
+
+       
+        <div id="menu" class="container mx-auto mt-5"></div>
         
         <div id="QuizCarousel" class="carousel slide mt-5"></div>
 
-        <!--
-        <button id="prev" style="position: absolute;top: 0;left: 0;">PREV</button>
-        <button id="next" style="position: absolute;top: 0;right: 0;">NEXT</button>
-        -->
         <footer class="text-center w-100" style="position: fixed;bottom: 0%;">
             <p class="text-light">PoloScolo © - 2021</p>
         </footer>

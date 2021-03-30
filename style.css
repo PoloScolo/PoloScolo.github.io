@@ -1,12 +1,89 @@
 .quizMenu{
     height :38px;
+    width: 250px;
     overflow: hidden;
-    transition-duration: 700ms;}
+    transition-duration: 1000ms;}
 
 .quizMenu:hover{
-    height: 250;}
+    height: 220px;}
 
-.quizParameters{
-    background-color: #f5f0e5;
-}
+.quizMenu a{
+    transition-duration: 1000ms;}
 
+.quizMenu:hover a{
+    opacity: 0.5;}
+    
+
+
+    input[type=range] {
+        height: 6px;
+        -webkit-appearance: none;
+        margin: 10px 0;
+        width: 100%;
+      }
+      input[type=range]:focus {
+        outline: none;
+      }
+      input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+
+        box-shadow: 0px 0px 0px #000000;
+        background: #FFFFFF;
+        border-radius: 50px;
+        border: 0px solid #000000;
+      }
+      input[type=range]::-webkit-slider-thumb {
+        box-shadow: 1px 1px 1px #000000;
+        border: 1px solid #000000;
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #FFFFFF;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -5px;
+      }
+      input[type=range]:focus::-webkit-slider-runnable-track {
+        background: #FFFFFF;
+      }
+      input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px #000000;
+        background: #FFFFFF;
+        border-radius: 50px;
+        border: 0px solid #000000;
+      }
+      input[type=range]::-moz-range-thumb {
+        box-shadow: 1px 1px 1px #000000;
+        border: 1px solid #000000;
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #FFFFFF;
+        cursor: pointer;
+      }
+      input[type=range]::-ms-track {
+        width: 100%;
+        height: 6px;
+        cursor: pointer;
+        animate: 0.2s;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+      }
+  
+      input[type=range]::-ms-thumb {
+        margin-top: 1px;
+        box-shadow: 1px 1px 1px #000000;
+        border: 1px solid #000000;
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #FFFFFF;
+        cursor: pointer;
+      }
+      
