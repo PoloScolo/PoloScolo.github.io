@@ -48,7 +48,7 @@
                                 <span id="rangevalFlag" class="text-light">10</span></br>
                                 <input type="range" class="w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="20" value="10" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
                             </div>
-                            <button id="StartFlagQuiz" class="btn btn-outline-light w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
+                            <button id="StartFlagQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val(),'flag')">Start</button>
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
                         <div id="CapitalQuizParameter" class="quizParameters bg-dark">
                             <div class="form-group mb-2">
                                 <label for="continent" class="text-light mb-1">Continents</label></br>
-                                <select class="form-control bg-dark text-light" name="Continents" id="continentFlag">
+                                <select class="form-control bg-dark text-light" name="continentCapital" id="continentCapital">
                                     <option class="text-light" selected>All</option>
                                     <option class="text-light" >Africa</option>
                                     <option class="text-light" >Americas</option>
@@ -74,7 +74,7 @@
                                 <span id="rangevalCapital" class="text-light">10</span></br>
                                 <input type="range" class="w-100" id="nbOfCapital" name="nbOfCapital" min="5" max="20" value="10" step="5" onInput="$('#rangevalCapital').html(parseInt($(this).val()))">
                             </div>
-                            <button id="StartCapitalQuiz" class="btn btn-outline-light w-100  mx-auto"  onclick="fetchFlagCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val())">Start</button>
+                            <button id="StartCapitalQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfCapital).val()),$(continentCapital).val(),'capital')">Start</button>
                         </div>
                     </div>
 

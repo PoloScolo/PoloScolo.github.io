@@ -1,60 +1,43 @@
 var goodAnswersindexes;
-var score = 0;
-var names= [];
+var region;
+var nbofquestion;
+var quizType;
+var names;
 var capitales;
 var flags ;
 var status = 0;
 var counterValue = 1;
-var region;
-
+var score = 0;
 
 window.onload = function() {
 
   $('#QuizCarousel').carousel({
     interval: false,
     wrap: false });
-  }
+
+}
 
   var menu = document.getElementById("menu");
 
-  /*StartFlagQuiz.onclick = function() {
-    fetchFlagCountryData();
-    menu.style.display="none";
-  }*/
-
-  
-
-function showParameters(quizParametersDiv){
-
-  /*quizParameters=document.getElementsByClassName('quizParameters');
-  for(var i= 0;i<quizParameters.length;i++){
-    quizParameters[i].style.display ="none";
-  }*/
-  quizParametersDiv.style.display ="block";
-}
-
-function hideParameters(quizParametersDiv){
-  quizParametersDiv.style.display ="none";
-}
-
-
-
-  
-  
-  /*var prevButton = document.getElementById("prev");
-  var nextButton = document.getElementById("next");*/
 
  //--------------------------Fetch Data for flag->Country Quiz--------------------------//
-async function fetchFlagCountryData(nbOfQuestion,Region){
+async function fetchCountryData(nbOfQuestion,Region,QuizType){
 
-  names= [];
- flags= []; 
- goodAnswersindexes= [];
- counterValue=1;
-  score=0;
+  console.log("fetching "+nbOfQuestion+" "+ QuizType+" from "+ Region +" continent");
 
-  region=Region;
+  //Reset of all variables
+  names = [];
+  flags = []; 
+  capitales = [];
+  goodAnswersindexes = [];
+  counterValue = 1;
+  score = 0;
+  nbofquestion = nbOfQuestion;
+  region = Region;
+  quizType = QuizType;
+  var excludecountryIndexes = [];
 
+  //Definition of the range of available indexes depending on the region choosed
   switch(Region) {
     case "All":
       var countryIndexes = [...Array(250).keys()];
@@ -78,66 +61,74 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
       console.log("continent non valide");
   }
 
-  var excludecountryIndexes = [];
-
-  console.log("fetching "+nbOfQuestion+" Flag->Country from "+ Region +" continent");
-
+ 
+  //Creation of the fetching URL depending on the region choosed
   if (Region=="All"){
     var URL = 'https://restcountries.eu/rest/v2/all';
   }else{
     URL = 'https://restcountries.eu/rest/v2/region/'+Region;
   }
-
   console.log(URL);
 
+
+  //fetching necessary data
   await fetch(URL)
   .then((resp) => resp.json())
   .then(function(data) {
 
-    //Storing flags and names of country
-    for (let i = 0; i < nbOfQuestion ; i++) {
+    if(QuizType=="flag"){
 
-      var randNb = randomNumber(countryIndexes,excludecountryIndexes);
-      names.push(data[randNb].name);
-      flags.push(data[randNb].alpha2Code);
-    
+      for (let i = 0; i < nbOfQuestion ; i++) {
+
+        var randNb = randomNumber(countryIndexes,excludecountryIndexes);
+        names.push(data[randNb].name);
+        flags.push(data[randNb].alpha2Code);
+      }
+
+    }else if(QuizType=="capital"){
+
+      for (let i = 0; i < nbOfQuestion ; i++) {
+
+        var randNb = randomNumber(countryIndexes,excludecountryIndexes);
+        names.push(data[randNb].name);
+        capitales.push(data[randNb].capital);
+      }
     }
-    //storing 90 more coutry name to reach 100
-    /*for (let i = 0; i < 90; i++) {
-
-      var randNb = randomNumber(countryIndexes,excludecountryIndexes);
-      names.push(data[randNb].name);
-
-    }*/
-    console.log(data.length);
   })
     .catch(function(error) {
       console.log("error on fetching data");
     });
 
-    createFlagCountryQuiz();
-    
+    //call of the quizz creation function
+    if(QuizType=="flag"){
+      createQuiz('flag',nbofquestion);
+    }
+    if(QuizType=="capital"){
+      createQuiz('capital',nbofquestion)
+    }
   }
 
-  //--------------------------Create Slides for flag->Country Quiz--------------------------//
-  function createFlagCountryQuiz(){
+  //--------------------------Creation of Flag Quiz--------------------------//
+  function createQuiz(QuizType,nbOfQuestion){
 
     var menu = document.getElementById("menu");
     menu.style.display="none";
 
-    console.log("creation of the Flag->Country Carousel");
+    
     var carousel = document.getElementById("QuizCarousel");
     console.log("emptying the carousel");
     carousel.innerHTML="";
+    console.log("creation of the "+QuizType+" Carousel");
+    score = 0;
 
     var counter = document.createElement("h1");
     
     counter.setAttribute("style","position: absolute ;top: 0%;right:2%;z-index:999;color:white");
     counter.id="counter";
-    counter.innerText = counterValue+"/"+flags.length;
+    counter.innerText = counterValue+"/"+nbOfQuestion;
     carousel.appendChild(counter);
 
-    for (let i = 0; i < flags.length; i++)  {
+    for (let i = 0; i < nbOfQuestion; i++)  {
 
       var slide = document.createElement("div");
       slide.setAttribute("class","carousel-item");
@@ -151,11 +142,26 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
       card.setAttribute("style","border:none");
       slide.appendChild(card);
 
-      var flag = document.createElement("img");
-      flag.classList.add("card-img-top","h-50");
-      flag.setAttribute("src","images/flags/"+flags[i]+".svg");
-      card.appendChild(flag);
+      if(quizType=="flag"){
 
+        var flag = document.createElement("img");
+        flag.classList.add("card-img-top","h-50");
+        flag.setAttribute("src","images/flags/"+flags[i]+".svg");
+        card.appendChild(flag);
+
+      }
+
+      if(quizType=="capital"){
+
+        var capital = document.createElement("h1");
+        capital.classList.add("card-title","text-light","text-center");
+        capital.setAttribute("style","padding : 20%;background-color:#404040;border-radius:15px");
+        capital.innerText = capitales[i];
+        card.appendChild(capital);
+
+      }
+
+      
       var cardBody = document.createElement("div");
       cardBody.setAttribute("class","card-body","bg-dark");
       card.appendChild(cardBody);
@@ -198,42 +204,43 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
     }
 
     var scoreSlide = document.createElement("div");
-    scoreSlide.setAttribute("class","carousel-item");
-    scoreSlide.innerHTML ="<h1 class='text-light' id='score'></h1>";
+    scoreSlide.classList.add("carousel-item");
 
-    var restartWithSameFlagsButton = document.createElement("button");
-    restartWithSameFlagsButton.classList.add("btn","btn-success");
-    restartWithSameFlagsButton.innerText = "Restart with same flags";
-    scoreSlide.appendChild(restartWithSameFlagsButton);
+    var scoreDiv = document.createElement("div");
+    scoreDiv.setAttribute("style","display : flex;flex-direction : column");
+    scoreDiv.classList.add("w-50","mx-auto","mt-5");
 
-    restartWithSameFlagsButton.onclick = function() {
-      score=0;
-      counterValue=1;
+    
+    var scoreText = document.createElement("p");
+    scoreText.classList.add("text-center","text-light");
+    scoreText.id = "score";
+    scoreDiv.appendChild(scoreText);
+
+    var restartWithSameDataButton = document.createElement("button");
+    restartWithSameDataButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
+    restartWithSameDataButton.innerHTML = "↺ same "+quizType+"s";
+    scoreDiv.appendChild(restartWithSameDataButton);
+
+    restartWithSameDataButton.onclick = function() {
       goodAnswersindexes=[];
-      carousel.innerHTML="";
-      createFlagCountryQuiz();
+      score = 0;
+      createQuiz(QuizType,nbOfQuestion);
     }
 
-    var restartWithDifferentFlagsButton = document.createElement("button");
-    restartWithDifferentFlagsButton.classList.add("btn","btn-success");
-    restartWithDifferentFlagsButton.innerText = "Restart with new flags";
-    scoreSlide.appendChild(restartWithDifferentFlagsButton);
+    var restartWithDifferentDataButton = document.createElement("button");
+    restartWithDifferentDataButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
+    restartWithDifferentDataButton.innerText = "↺ new "+QuizType+"s";
+    scoreDiv.appendChild(restartWithDifferentDataButton);
 
-    restartWithDifferentFlagsButton.onclick= function (){
-      nbOfQuestion=flags.length;
-      carousel.innerHTML="";
-      flags=[];
-      names=[];
-      goodAnswersindexes=[];
-      counterValue=1;
-      score=0;
-      fetchFlagCountryData(nbOfQuestion,region);
+    restartWithDifferentDataButton.onclick= function (){
+      score = 0;
+      fetchCountryData(nbOfQuestion,region,QuizType);
     }
 
     var backToMenuButton = document.createElement("button");
-    backToMenuButton.classList.add("btn","btn-success");
+    backToMenuButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
     backToMenuButton.innerText = "Menu";
-    scoreSlide.appendChild(backToMenuButton);
+    scoreDiv.appendChild(backToMenuButton);
 
     backToMenuButton.onclick= function (){
       flags=[];
@@ -243,7 +250,7 @@ async function fetchFlagCountryData(nbOfQuestion,Region){
       carousel.innerHTML="";
       menu.style.display="block";
     }
-
+    scoreSlide.appendChild(scoreDiv);
     carousel.appendChild(scoreSlide);
   }
 
@@ -260,14 +267,14 @@ function randomNumber(indexes,excludeIndexes){
 function carouselNext(time){
 
   var counter=document.getElementById("counter");
-  counter.innerText = counterValue+"/"+flags.length;
+  counter.innerText = counterValue+"/"+nbofquestion;
   setTimeout(() => {
     $("#QuizCarousel").carousel("next");
     counterValue++;
-    if (counterValue > flags.length){
+    if (counterValue > nbofquestion){
       counter.style.display="none";
     }
-    counter.innerText = counterValue+"/"+flags.length;}, time);
+    counter.innerText = counterValue+"/"+nbofquestion;}, time);
   
 }
 
@@ -278,7 +285,6 @@ function checkAnswer(QuestionIndex,AnswerIndex){
   if(AnswerIndex==goodAnswersindexes[QuestionIndex]){
     answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="green";
     score ++;
-    
   }else {
     
     answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="red";
@@ -288,6 +294,6 @@ function checkAnswer(QuestionIndex,AnswerIndex){
     for (i = QuestionIndex*4 ; i < QuestionIndex*4+4 ; i++){
       answerButtons[i].disabled =true;
     }
-    carouselNext(2000);
-    document.getElementById('score').innerHTML = "Votre score : "+score + "/"+flags.length;
+    carouselNext(0);
+    document.getElementById('score').innerHTML = "Score : "+score + "/"+nbofquestion;
 }
