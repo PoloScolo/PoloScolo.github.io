@@ -120,6 +120,7 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     carousel.innerHTML="";
     console.log("creation of the "+QuizType+" Carousel");
     score = 0;
+    counterValue = 1;
 
     var counter = document.createElement("h1");
     
