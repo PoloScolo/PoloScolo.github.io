@@ -155,7 +155,7 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
 
         var capital = document.createElement("h1");
         capital.classList.add("card-title","text-light","text-center");
-        capital.setAttribute("style","padding : 20%;background-color:#404040;border-radius:15px");
+        capital.setAttribute("style","padding : 10%;background-color:#404040;border-radius:15px");
         capital.innerText = capitales[i];
         card.appendChild(capital);
 
