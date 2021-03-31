@@ -294,6 +294,6 @@ function checkAnswer(QuestionIndex,AnswerIndex){
     for (i = QuestionIndex*4 ; i < QuestionIndex*4+4 ; i++){
       answerButtons[i].disabled =true;
     }
-    carouselNext(0);
+    carouselNext(1500);
     document.getElementById('score').innerHTML = "Score : "+score + "/"+nbofquestion;
 }
