@@ -1,4 +1,6 @@
 var goodAnswersindexes;
+var countryIndexes;
+var excludecountryIndexes;
 var region;
 var nbofquestion;
 var quizType;
@@ -7,21 +9,24 @@ var capitales;
 var flags ;
 var status = 0;
 var counterValue = 1;
-var score = 0;
+var score;
+var URL;
+var menu = document.getElementById("menu");
+var loading = document.getElementById("loading");
+var carousel = document.getElementById("QuizCarousel");
 
 window.onload = function() {
-
   $('#QuizCarousel').carousel({
     interval: false,
     wrap: false });
-
 }
-
-  var menu = document.getElementById("menu");
-
 
  //--------------------------Fetch Data for flag->Country Quiz--------------------------//
 async function fetchCountryData(nbOfQuestion,Region,QuizType){
+
+  menu.style.display="none";
+  loading.style.display="block";
+  
 
   console.log("fetching "+nbOfQuestion+" "+ QuizType+" from "+ Region +" continent");
 
@@ -29,49 +34,45 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
   names = [];
   flags = []; 
   capitales = [];
+  countryIndexes = [];
+  excludecountryIndexes = [];
   goodAnswersindexes = [];
-  counterValue = 1;
-  score = 0;
+  
   nbofquestion = nbOfQuestion;
   region = Region;
   quizType = QuizType;
-  var excludecountryIndexes = [];
-
-  //Definition of the range of available indexes depending on the region choosed
+  
+  //Definition of the range of available indexes and of the fetching URL depending on the region choosed
   switch(Region) {
     case "All":
-      var countryIndexes = [...Array(250).keys()];
+      countryIndexes = [...Array(250).keys()];
+      URL = 'https://restcountries.eu/rest/v2/all';
       break;
     case "Africa":
-      var countryIndexes = [...Array(60).keys()];
+      countryIndexes = [...Array(60).keys()];
+      URL = 'https://restcountries.eu/rest/v2/region/'+Region;
       break;
     case "Americas":
-      var countryIndexes = [...Array(57).keys()];
+      countryIndexes = [...Array(57).keys()];
+      URL = 'https://restcountries.eu/rest/v2/region/'+Region;
       break;
     case "Asia":
-      var countryIndexes = [...Array(50).keys()];
+      countryIndexes = [...Array(50).keys()];
+      URL = 'https://restcountries.eu/rest/v2/region/'+Region;
     break;
     case "Europe":
-      var countryIndexes = [...Array(53).keys()];
+      countryIndexes = [...Array(53).keys()];
+      URL = 'https://restcountries.eu/rest/v2/region/'+Region;
     break;
     case "Oceania":
-      var countryIndexes = [...Array(27).keys()];
+      countryIndexes = [...Array(27).keys()];
+      URL = 'https://restcountries.eu/rest/v2/region/'+Region;
     break;
     default:
       console.log("continent non valide");
   }
 
- 
-  //Creation of the fetching URL depending on the region choosed
-  if (Region=="All"){
-    var URL = 'https://restcountries.eu/rest/v2/all';
-  }else{
-    URL = 'https://restcountries.eu/rest/v2/region/'+Region;
-  }
-  console.log(URL);
-
-
-  //fetching necessary data
+  //fetching  data
   await fetch(URL)
   .then((resp) => resp.json())
   .then(function(data) {
@@ -79,7 +80,6 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     if(QuizType=="flag"){
 
       for (let i = 0; i < nbOfQuestion ; i++) {
-
         var randNb = randomNumber(countryIndexes,excludecountryIndexes);
         names.push(data[randNb].name);
         flags.push(data[randNb].alpha2Code);
@@ -88,12 +88,17 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     }else if(QuizType=="capital"){
 
       for (let i = 0; i < nbOfQuestion ; i++) {
-
         var randNb = randomNumber(countryIndexes,excludecountryIndexes);
         names.push(data[randNb].name);
         capitales.push(data[randNb].capital);
       }
     }
+    for (let i = 0; i < countryIndexes.length - nbOfQuestion ; i++) {
+      var randNb = randomNumber(countryIndexes,excludecountryIndexes);
+      names.push(data[randNb].name);
+    }
+    console.log(names);
+
   })
     .catch(function(error) {
       console.log("error on fetching data");
@@ -111,20 +116,16 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
   //--------------------------Creation of Flag Quiz--------------------------//
   function createQuiz(QuizType,nbOfQuestion){
 
-    var menu = document.getElementById("menu");
-    menu.style.display="none";
-
-    
-    var carousel = document.getElementById("QuizCarousel");
     console.log("emptying the carousel");
     carousel.innerHTML="";
+    carousel.style.display="none";
     console.log("creation of the "+QuizType+" Carousel");
-    score = 0;
     counterValue = 1;
+    score = 0;
 
     var counter = document.createElement("h1");
     
-    counter.setAttribute("style","position: absolute ;top: 0%;right:2%;z-index:999;color:white");
+    counter.setAttribute("style","position: absolute ;top: 0%;right:5%;z-index:999;color:white");
     counter.id="counter";
     counter.innerText = counterValue+"/"+nbOfQuestion;
     carousel.appendChild(counter);
@@ -156,15 +157,15 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
 
         var capital = document.createElement("h1");
         capital.classList.add("card-title","text-light","text-center");
-        capital.setAttribute("style","padding : 10%;background-color:#404040;border-radius:15px");
+        capital.setAttribute("style","padding : 10%;background-color:#404040;border-radius:15px; width : 90%; margin:auto");
         capital.innerText = capitales[i];
         card.appendChild(capital);
 
       }
 
-      
       var cardBody = document.createElement("div");
       cardBody.setAttribute("class","card-body","bg-dark");
+      cardBody.setAttribute("style","margin-top:30px");
       card.appendChild(cardBody);
 
       var answerGrid = document.createElement("div");
@@ -225,7 +226,9 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     restartWithSameDataButton.onclick = function() {
       goodAnswersindexes=[];
       score = 0;
+      loading.style.display="block";
       createQuiz(QuizType,nbOfQuestion);
+      
     }
 
     var restartWithDifferentDataButton = document.createElement("button");
@@ -235,7 +238,10 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
 
     restartWithDifferentDataButton.onclick= function (){
       score = 0;
+      loading.style.display="block";
       fetchCountryData(nbOfQuestion,region,QuizType);
+      
+
     }
 
     var backToMenuButton = document.createElement("button");
@@ -253,6 +259,13 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     }
     scoreSlide.appendChild(scoreDiv);
     carousel.appendChild(scoreSlide);
+
+    loading.style.display="none";
+    carousel.style.display="block";
+      
+    
+
+    
   }
 
 function randomNumber(indexes,excludeIndexes){
