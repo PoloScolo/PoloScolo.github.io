@@ -1,3 +1,12 @@
+/*@import url('https://fonts.googleapis.com/css?family=Dosis|Quicksand');
+
+body {font-family: 'Dosis' ,sans-serif;
+    font-weight: 600;}*/
+
+body a {text-decoration: none;}
+
+#githubLink{transition-duration: 1000ms;}
+
 .quizMenu{
     height :38px;
     width: 250px;
@@ -8,12 +17,11 @@
     height: 220px;}
 
 .quizMenu a{
-    transition-duration: 1000ms;}
+    transition-duration: 1000ms;
+    }
 
 .quizMenu:hover a{
     opacity: 0.5;}
-
-
 
 #loading {
   display: none;

@@ -7,24 +7,48 @@
 
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" type="text/css" href="cssmap-europe\cssmap-europe\cssmap-europe.css" media="screen" />
 
     </head>
 
-    <body class="bg-dark overflow-hidden">
+    <body class="bg-dark">
 
        
         <nav class="navbar navbar-dark mx-3 p-2" style='border-bottom:2px solid #ccc'>
             <div class="container-fluid">
 
                 <!------------------------------- LOGO ------------------------------->
-
-                <a class="navbar-brand" href="../index.html">
-                    <img src="images/earth2.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GEOPARDY 
-                </a>
+                <div id="home">
+                    <a class="navbar-brand w-25" href="">
+                        <img src="images/earth2.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GEOPARDY </a>
+                        <a class="text-light"  id="githubLink" style="position: relative;left: -100px;transition-duration: 800ms; opacity: 0;text-decoration: none;" href="https://github.com/PoloScolo/PoloScolo.github.io"><img src="images/logo-github.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GitHub</a>
+                </div>
 
                 <!------------------------------- QUIZES ------------------------------->
 
                 <div id="quizContainer" class="d-flex justify-content-between" style="width: 400px;">
+
+                    <!------------------------------- MAP QUIZ ------------------------------->
+                    <!--
+                    <div class="quizMenu mx-2">
+                        <a id="mapQuiz" class="nav-link text-light text-center ">MAP QUIZ</a>
+
+                        <div id="mapQuizParameter" class="quizParameters bg-dark">
+                            <div class="form-group mb-2">
+                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <select class="form-control bg-dark text-light" name="Continents" id="continentmap">
+                                    <option class="text-light" selected>Europe</option>
+                                </select>
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="nbOfmap" class="text-light">Number of flag : </label>
+                                <span id="rangevalmap" class="text-light">10</span></br>
+                                <input type="range" class="w-100" id="nbOfmap" name="nbOfmap" min="5" max="20" value="10" step="5" onInput="$('#rangevalmap').html(parseInt($(this).val()))">
+                            </div>
+                            <button id="StartmapQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfmap).val()),$(continentmap).val(),'map')">Start</button>
+                        </div>
+                    </div>
+                    -->
 
                     <!------------------------------- FLAG QUIZ ------------------------------->
                 
@@ -83,20 +107,30 @@
             </div>
         </nav>
 
-       
-        <div id="menu" class="container mx-auto mt-5"></div>
+       <!----------- HOME PAGE--------------->
+        <div id="menu" class="container mx-auto mt-5 text-light">
+            <h1>Welcome to Geopardy, a prototype webApp geography games.</h1></br>
+            <h1>The data of the countries are fetched at the <a  href="https://restcountries.eu">restcountries.eu</a> API.</h1>
+        </div>
         
+        <!----------- QUIZ CAROUSEL--------------->
         <div id="QuizCarousel" class="carousel slide" style="margin-top: 30px;"></div>
 
+        <!--------------MAP QUIZ------------------>
+        <div id="QuizMap" class="container mx-auto text-light"></div>
+
+        <!-----------LOADING ICON--------------->
         <img id="loading" src="images/earth3.png">
-       
-        <footer class="text-center w-100" style="position: fixed;bottom: 0%;">
+
+        <footer class="text-center w-100 " style="position: fixed;bottom: 0%;">
             <p class="text-light">PoloScolo © - 2021</p>
         </footer>
 
-        <script src="jquery\jquery.min.js"></script>
+        <script src="js\jquery.min.js"></script>
         <script src="boostrap\js\bootstrap.min.js"></script>
-        <script src="main.js"></script>
+        <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
+        <script src="js\main.js"></script> 
+        <script src="js\carouselQuiz.js"></script> 
 
     </body>
 
