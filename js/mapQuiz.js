@@ -21,10 +21,12 @@ function startMapQuiz(nbOfQuestion,Region){
     carousel.style.display="none";
     console.log("disparition du carousel");
     loading.style.display="block";
+    
 
     $('#QuizMap').load('map.html', function(){
         fetchMapData(nbOfQuestion,Region);
         loading.style.display="none";
+        
        
         QuizMap.appendChild(scoreDiv);
         count = 0;
@@ -169,8 +171,12 @@ function showScore(){
     }
 
     document.getElementById('restartMapDifferentData').onclick = function(){
-
         startMapQuiz(nbofquestion,region);
+    }
+
+    document.getElementById('backToMenu').onclick = function(){
+        document.getElementById('QuizMap').innerHTML="";
+        document.getElementById('menu').style.display="block";
     }
 
 };
