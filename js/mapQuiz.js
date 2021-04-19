@@ -26,7 +26,7 @@ function startMapQuiz(nbOfQuestion,Region){
 
     $('#QuizMap').load('map.html', function(){
         fetchMapData(nbOfQuestion,Region);
-        $.getScript('js/mapQuiz.js');
+        //$.getScript('js/mapQuiz.js');
         loading.style.display="none";
         
        
