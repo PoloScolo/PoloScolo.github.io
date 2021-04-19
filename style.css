@@ -7,21 +7,26 @@ body a {text-decoration: none;}
 
 #githubLink{transition-duration: 1000ms;}
 
+#quizContainer{height: 38px;}
+
 .quizMenu{
     height :38px;
     width: 250px;
     overflow: hidden;
-    transition-duration: 1000ms;}
+    transition-duration: 800ms;}
 
-.quizMenu:hover{
+.quizMenu:hover,#quizContainer:hover{
     height: 220px;}
 
-.quizMenu a{
-    transition-duration: 1000ms;
+#quizContainer{
+    transition-duration: 800ms;
     }
 
 .quizMenu:hover a{
     opacity: 0.5;}
+
+.quizParameters {padding-left: 5px;
+  padding-right: 5px;}
 
 #loading {
   display: none;

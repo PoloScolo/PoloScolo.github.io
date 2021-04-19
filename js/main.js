@@ -15,7 +15,9 @@ var URL;
 var menu = document.getElementById("menu");
 var loading = document.getElementById("loading");
 var carousel = document.getElementById("QuizCarousel");
+var quizContainer = document.getElementById("quizContainer");
 var home = document.getElementById("home");
+var navbar = document.getElementById("navbar");
 var githubLink = document.getElementById("githubLink");
 var QuizMap = document.getElementById("QuizMap");
 
@@ -33,6 +35,8 @@ $(home).hover(function(){
   $(githubLink).css("left", "-100px");
   $(githubLink).css("opacity", "0");
 });
+
+
 
 //get a random number from an specific range 
 function randomNumber(indexes,excludeIndexes){
