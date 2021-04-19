@@ -7,7 +7,7 @@
 
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" type="text/css" href="cssmap-europe\cssmap-europe\cssmap-europe.css" media="screen" />
+        <link href="https://cdn.jsdelivr.net/gh/StephanWagner/svgMap@v2.1.1/dist/svgMap.min.css" rel="stylesheet">
 
     </head>
 
@@ -21,15 +21,16 @@
                 <div id="home">
                     <a class="navbar-brand w-25" href="">
                         <img src="images/earth2.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GEOPARDY </a>
-                        <a class="text-light"  id="githubLink" style="position: relative;left: -100px;transition-duration: 800ms; opacity: 0;text-decoration: none;" href="https://github.com/PoloScolo/PoloScolo.github.io"><img src="images/logo-github.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GitHub</a>
+                        <a class="text-light"  id="githubLink" style="position: relative;left: -100px;transition-duration: 800ms; opacity: 0;text-decoration: none;" href="https://github.com/PoloScolo/PoloScolo.github.io"><img src="images/logo-github.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GitHub
+                    </a>
                 </div>
 
                 <!------------------------------- QUIZES ------------------------------->
 
-                <div id="quizContainer" class="d-flex justify-content-between" style="width: 400px;">
+                <div id="quizContainer" class="d-flex justify-content-between" style="width: 600px;">
 
                     <!------------------------------- MAP QUIZ ------------------------------->
-                    <!--
+                    
                     <div class="quizMenu mx-2">
                         <a id="mapQuiz" class="nav-link text-light text-center ">MAP QUIZ</a>
 
@@ -37,7 +38,12 @@
                             <div class="form-group mb-2">
                                 <label for="continent" class="text-light mb-1">Continents</label></br>
                                 <select class="form-control bg-dark text-light" name="Continents" id="continentmap">
-                                    <option class="text-light" selected>Europe</option>
+                                    <option class="text-light" selected>All</option>
+                                    <option class="text-light" >Africa</option>
+                                    <option class="text-light" >Americas</option>
+                                    <option class="text-light" >Asia</option>
+                                    <option class="text-light" >Europe</option>
+                                    <option class="text-light" >Oceania</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
@@ -45,16 +51,15 @@
                                 <span id="rangevalmap" class="text-light">10</span></br>
                                 <input type="range" class="w-100" id="nbOfmap" name="nbOfmap" min="5" max="20" value="10" step="5" onInput="$('#rangevalmap').html(parseInt($(this).val()))">
                             </div>
-                            <button id="StartmapQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfmap).val()),$(continentmap).val(),'map')">Start</button>
+                            <button id="StartmapQuiz" class="btn btn-light w-100  mx-auto"  onclick="startMapQuiz(parseInt($(nbOfmap).val()),$(continentmap).val())">Start</button>
                         </div>
                     </div>
-                    -->
+                    
 
                     <!------------------------------- FLAG QUIZ ------------------------------->
                 
                     <div class="quizMenu mx-2">
                         <a id="flagQuiz" class="nav-link text-light text-center ">FLAG QUIZ</a>
-
                         <div id="FlagQuizParameter" class="quizParameters bg-dark">
                             <div class="form-group mb-2">
                                 <label for="continent" class="text-light mb-1">Continents</label></br>
@@ -80,7 +85,6 @@
 
                     <div class="quizMenu mx-2">
                         <a id="capitalQuiz" class="nav-link text-light text-center ">CAPITAL QUIZ</a>
-
                         <div id="CapitalQuizParameter" class="quizParameters bg-dark">
                             <div class="form-group mb-2">
                                 <label for="continent" class="text-light mb-1">Continents</label></br>
@@ -101,23 +105,21 @@
                             <button id="StartCapitalQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfCapital).val()),$(continentCapital).val(),'capital')">Start</button>
                         </div>
                     </div>
-
                 </div>
-
             </div>
         </nav>
 
        <!----------- HOME PAGE--------------->
         <div id="menu" class="container mx-auto mt-5 text-light">
-            <h1>Welcome to Geopardy, a prototype webApp for geography games.</h1></br>
-            <h1>The data of the countries are fetched at the <a  href="https://restcountries.eu">restcountries.eu</a> API.</h1>
+            <h3>Welcome to Geopardy, a prototype webApp for geography games.</h3></br>
+            <h3>The data of the countries are fetched at the <a  href="https://restcountries.eu">restcountries.eu</a> API.</h3>
         </div>
         
         <!----------- QUIZ CAROUSEL--------------->
-        <div id="QuizCarousel" class="carousel slide" style="margin-top: 30px;"></div>
+        <div id="QuizCarousel" class="carousel slide"></div>
 
         <!--------------MAP QUIZ------------------>
-        <div id="QuizMap" class="container mx-auto text-light"></div>
+        <div id="QuizMap" class="container mx-auto text-light w-75" ></div>
 
         <!-----------LOADING ICON--------------->
         <img id="loading" src="images/earth3.png">
@@ -128,9 +130,12 @@
 
         <script src="js\jquery.min.js"></script>
         <script src="boostrap\js\bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://cssmapsplugin.com/5/jquery.cssmap.min.js"></script>
         <script src="js\main.js"></script> 
         <script src="js\carouselQuiz.js"></script> 
+        <script src="js\mapQuiz.js"></script> 
+        
+        <script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.6.1/dist/svg-pan-zoom.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/StephanWagner/svgMap@v2.1.1/dist/svgMap.min.js"></script>
 
     </body>
 

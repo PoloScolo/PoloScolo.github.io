@@ -4,6 +4,7 @@
 async function fetchCountryData(nbOfQuestion,Region,QuizType){
 
     menu.style.display="none";
+    QuizMap.innerHTML="";
     loading.style.display="block";
     console.log("fetching "+nbOfQuestion+" "+ QuizType+" from "+ Region +" continent");
   
@@ -76,15 +77,7 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
   
     //call of the quizz creation function
     createCarouselQuiz(QuizType,nbOfQuestion);
-    /*if(QuizType=="flag"){
-        createCarouselQuiz('flag',nbofquestion);
-    }
-    if(QuizType=="capital"){
-        createCarouselQuiz('capital',nbofquestion)
-    }
-    if(QuizType=="map"){
-        $("#QuizMap").load("source-europe.html");
-    }*/
+    
 }
 
 //----------------------Creating the Carousel-------------------------//

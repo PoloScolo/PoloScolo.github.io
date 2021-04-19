@@ -111,4 +111,7 @@ body a {text-decoration: none;}
         background: #FFFFFF;
         cursor: pointer;
       }
-      
+
+#QuizMap,#QuizCarousel {margin-top: 60px;}
+
+

@@ -1,0 +1,57 @@
+<div id=mapQuizInfoDiv>
+    <div id="mapQuizInfo" class="d-flex justify-content-between">
+        <h2 class="text-light w-100 " id="askedCountry"></h2>
+        <h2 id="counterMap"></h2>
+    </div>
+</div>
+
+<div id="svgMap" class="mx-auto" style="border: white 1px solid;border-radius: 5px;"></div>
+
+<div id="scoreDiv" style="display : none;flex-direction : column" class="mx-auto w-50">
+
+    <h2 id="score" class="text-center"></h2>
+    <button id="restartMapSameData" class="btn btn-light mx-auto w-50 mb-2" onclick="">↺ same countries</button>
+    <button id="restartMapDifferentData" class="btn btn-light mx-auto w-50 mb-2" onclick="">↺ new countries</button>
+    <button id="backToMenu" class="btn btn-light mx-auto w-50 mb-2" onclick="">menu</button>
+
+</div>
+
+<script>
+
+    new svgMap({
+        targetElementID: 'svgMap',
+        hideFlag: 'true',
+        data: {
+        data: {
+            gdp: {
+            name: 'GDP per capita',
+            format: '{0} USD',
+            thousandSeparator: ',',
+            toolip: 'false',
+            thresholdMax: 50000,
+            thresholdMin: 1000
+            },
+            change: {
+            name: 'Change to year before',
+            format: '{0} %'
+            }
+        },
+        applyData: 'gdp',
+        values: {
+            /*AF: {gdp: 587, change: 4.73},
+            AL: {gdp: 4583, change: 11.09},
+            DZ: {gdp: 4293, change: 10.01}*/
+        }
+        }
+    });
+
+    
+    var mapBG = document.getElementsByClassName("svgMap-map-wrapper");
+    mapBG[0].style.background="none";
+    var svgMapControls = document.getElementsByClassName("svgMap-map-controls-wrapper");
+    svgMapControls[0].style.display ="none";
+    var counterMap = document.getElementById("counterMap");
+
+    $.getScript("js/mapQuiz.js");
+
+</script>
