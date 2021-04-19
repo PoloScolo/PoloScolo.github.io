@@ -22,9 +22,11 @@ function startMapQuiz(nbOfQuestion,Region){
     console.log("disparition du carousel");
     loading.style.display="block";
     
+    
 
     $('#QuizMap').load('map.html', function(){
         fetchMapData(nbOfQuestion,Region);
+        $.getScript('js/mapQuiz.js');
         loading.style.display="none";
         
        
