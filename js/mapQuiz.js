@@ -89,8 +89,6 @@ async function fetchMapData(nbOfQuestion,Region){
             console.log("error on fetching data");
         });
     
-       console.log(names);
-       console.log(flags); 
        askedCountry.innerText= names[count];
 }
 
