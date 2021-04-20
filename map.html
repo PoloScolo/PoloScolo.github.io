@@ -52,7 +52,11 @@
     svgMapControls[0].style.display ="none";
     var counterMap = document.getElementById("counterMap");
 
-    /*console.log("before getscript");
-    console.log("after getscript");*/
+    for (var i = 0; i < countries.length; i++){
+
+    countries[i].onclick = function() {checkMapAnswer(this)};
+}
+
+
 
 </script>

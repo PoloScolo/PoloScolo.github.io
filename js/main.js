@@ -27,8 +27,6 @@ window.onload = function() {
     wrap: false });
 }
 
-
-
 //Creation of the brand hover effect
 $(home).hover(function(){
   $(githubLink).css("left", "0px");
