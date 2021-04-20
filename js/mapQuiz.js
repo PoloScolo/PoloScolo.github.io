@@ -152,7 +152,7 @@ function showScore(){
     }
 
     document.getElementById('restartMapDifferentData').onclick = function(){
-        startMapQuiz(nbofquestion,region);
+        fetchMapData(nbofquestion,region);
     }
 
     document.getElementById('backToMenu').onclick = function(){
