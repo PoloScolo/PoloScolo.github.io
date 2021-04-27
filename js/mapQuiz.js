@@ -16,11 +16,11 @@ function setupMap(nbOfQuestion,Region){
         document.getElementById("askedCountry").innerText = names[count];
         counterMap.innerText = count+1+"/"+nbofquestion;
         //preventing the svg map to create tooltips
-        /*
+        
         var tooltips = document.getElementsByClassName("svgMap-tooltip");
         for (var i = 0; i < tooltips.length; i++){
             tooltips[i].remove();
-        }*/
+        }
     })
 }
 
