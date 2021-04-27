@@ -16,10 +16,11 @@ function setupMap(nbOfQuestion,Region){
         document.getElementById("askedCountry").innerText = names[count];
         counterMap.innerText = count+1+"/"+nbofquestion;
         //preventing the svg map to create tooltips
+        /*
         var tooltips = document.getElementsByClassName("svgMap-tooltip");
         for (var i = 0; i < tooltips.length; i++){
             tooltips[i].remove();
-        }
+        }*/
     })
 }
 
@@ -83,6 +84,11 @@ function checkMapAnswer(element){
     if (clickcount < 2) {
 
         if(clickedCountryID==flags[count]){
+
+            for (var i = 0; i < countries.length; i++){
+                countries[i].setAttribute('style', 'fill: grey');
+            }
+            
             element.setAttribute('style', 'fill: green');
             score++;
             
@@ -105,10 +111,16 @@ function checkMapAnswer(element){
     }
     else{  
         element.setAttribute('style', 'fill: red');
-        goodCountry.setAttribute('style', 'fill: green');
+
         for (var i = 0; i < countries.length; i++){
-            countries[i].setAttribute("onclick","return false;");
+            if (countries[i].getAttribute('style')!="fill: red"){
+                countries[i].setAttribute('style', 'fill: grey');
+            } 
         }
+
+        goodCountry.setAttribute('style', 'fill: green');
+
+        
         
         setTimeout(function(){ 
             count++;

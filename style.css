@@ -1,13 +1,31 @@
-/*@import url('https://fonts.googleapis.com/css?family=Dosis|Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Dosis|Quicksand');
 
 body {font-family: 'Dosis' ,sans-serif;
-    font-weight: 600;}*/
+    font-weight: 600;
+    overflow: hidden;
+    background-color: rgb(46, 46, 46);
+    color: white;}
 
-body a {text-decoration: none;}
+a {text-decoration: none;color: white;}
 
-#githubLink{transition-duration: 1000ms;}
+a:hover {text-decoration: none;color: white;}
 
-#quizContainer{height: 38px;}
+/*=================================== NAVBAR ====================================*/
+
+.navbar {border-bottom: 2px solid white;
+        padding: 10px;
+        margin-inline: 20px;}
+
+.nav-link {text-align: center;}
+
+#home img {width: 30px; height: 30px;}
+
+#githubLink{
+  position: relative;
+  left: -100px;
+  transition-duration: 800ms;
+  opacity: 0;
+  text-decoration: none;}
 
 .quizMenu{
     height :38px;
@@ -18,15 +36,51 @@ body a {text-decoration: none;}
 .quizMenu:hover,#quizContainer:hover{
     height: 220px;}
 
-#quizContainer{
-    transition-duration: 800ms;
-    }
+#quizContainer{transition-duration: 800ms;
+    height: 38px;
+    width: calc(200px * 3);}
 
-.quizMenu:hover a{
-    opacity: 0.5;}
+.quizMenu:hover a{opacity: 0.5;}
 
 .quizParameters {padding-left: 5px;
   padding-right: 5px;}
+
+/*=================================== CAROUSEL ====================================*/
+
+#counter {position: absolute ;top: 0%;right:5%;z-index:999;color:white}
+
+.card {display: block;
+  background: transparent;
+  border :none}
+
+.card-img-top {height: 50%;}
+
+.card-title {
+  text-align: center;
+  padding : 10%;
+  border-radius:15px;
+  width : 90%; 
+  margin:auto}
+
+.answer-grid {
+  width: 60%;
+  margin-inline: auto;}
+
+.answer-button {height: 60px; width: 100%;}
+
+.menu-button{
+  width: 30%;
+  margin: 5px;
+  margin-inline: auto;}
+
+.carousel-score{
+  width: 50%;
+  margin-inline: auto;
+  margin-top: 50px;
+  display : flex;
+  flex-direction : column}
+
+/*=======================================================================*/
 
 #loading {
   display: none;
@@ -117,6 +171,13 @@ body a {text-decoration: none;}
         cursor: pointer;
       }
 
-#QuizMap,#QuizCarousel {margin-top: 15px;}
+#QuizMap,#QuizCarousel,#menu {margin-top: 15px;}
+
+#QuizMap{width: 70%;margin-inline:auto;}
 
 
+/*=================================== FOOTER ====================================*/
+footer{text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0%;}

@@ -1,54 +1,53 @@
 <html>
     
     <head>
+
         <title>Geopardy</title>
 
         <meta charset="utf-8" />
 
         <link rel="stylesheet" href="boostrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="style.css?rnd=132">
         <link href="https://cdn.jsdelivr.net/gh/StephanWagner/svgMap@v2.1.1/dist/svgMap.min.css" rel="stylesheet">
 
     </head>
 
-    <body class="bg-dark" style="overflow: hidden;">
+    <body>
 
-       
-        <nav class="navbar navbar-dark mx-3 p-2" id="navbar" style='border-bottom:2px solid #ccc'>
+        <nav class="navbar">
             <div class="container-fluid">
 
                 <!------------------------------- LOGO ------------------------------->
                 <div id="home">
-                    <a class="navbar-brand w-25" href="">
-                        <img src="images/earth2.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GEOPARDY </a>
-                        <a class="text-light"  id="githubLink" style="position: relative;left: -100px;transition-duration: 800ms; opacity: 0;text-decoration: none;" href="https://github.com/PoloScolo/PoloScolo.github.io"><img src="images/logo-github.png"width="30" height="30" class="d-inline-block align-top ml-2" alt="">&nbsp; GitHub
+                    <a class="navbar-brand">
+                        <img src="images/earth2.png" class="d-inline-block align-top">&nbsp; GEOPARDY </a>
+                        <a id="githubLink" href="https://github.com/PoloScolo/PoloScolo.github.io"><img src="images/logo-github.png" class="d-inline-block align-top">&nbsp; GitHub
                     </a>
                 </div>
 
                 <!------------------------------- QUIZES ------------------------------->
 
-                <div id="quizContainer" class="d-flex justify-content-between" style="width: 600px;">
+                <div id="quizContainer" class="d-flex justify-content-between">
 
                     <!------------------------------- MAP QUIZ ------------------------------->
                     
                     <div class="quizMenu">
-                        <a id="mapQuiz" class="nav-link text-light text-center ">MAP QUIZ</a>
-
-                        <div id="mapQuizParameter" class="quizParameters bg-dark">
+                        <a class="nav-link">MAP QUIZ</a>
+                        <div class="quizParameters">
                             <div class="form-group mb-2">
-                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <label for="continent" class=" mb-1">Continents</label></br>
                                 <select class="form-control bg-dark text-light" name="Continents" id="continentmap">
-                                    <option class="text-light" selected>All</option>
-                                    <option class="text-light" >Africa</option>
-                                    <option class="text-light" >Americas</option>
-                                    <option class="text-light" >Asia</option>
-                                    <option class="text-light" >Europe</option>
-                                    <option class="text-light" >Oceania</option>
+                                    <option selected>All</option>
+                                    <option>Africa</option>
+                                    <option>Americas</option>
+                                    <option>Asia</option>
+                                    <option>Europe</option>
+                                    <option>Oceania</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="nbOfmap" class="text-light">Number of countries : </label>
-                                <span id="rangevalmap" class="text-light">10</span></br>
+                                <label for="nbOfmap" class="">Number of countries : </label>
+                                <span id="rangevalmap" class="">10</span></br>
                                 <input type="range" class="w-100" id="nbOfmap" name="nbOfmap" min="5" max="20" value="10" step="5" onInput="$('#rangevalmap').html(parseInt($(this).val()))">
                             </div>
                             <button id="StartmapQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchMapData(parseInt($(nbOfmap).val()),$(continentmap).val())">Start</button>
@@ -59,22 +58,22 @@
                     <!------------------------------- FLAG QUIZ ------------------------------->
                 
                     <div class="quizMenu">
-                        <a id="flagQuiz" class="nav-link text-light text-center ">FLAG QUIZ</a>
-                        <div id="FlagQuizParameter" class="quizParameters bg-dark">
+                        <a id="flagQuiz" class="nav-link text-center ">FLAG QUIZ</a>
+                        <div class="quizParameters">
                             <div class="form-group mb-2">
-                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <label for="continent" class="mb-1">Continents</label></br>
                                 <select class="form-control bg-dark text-light" name="Continents" id="continentFlag">
-                                    <option class="text-light" selected>All</option>
-                                    <option class="text-light" >Africa</option>
-                                    <option class="text-light" >Americas</option>
-                                    <option class="text-light" >Asia</option>
-                                    <option class="text-light" >Europe</option>
-                                    <option class="text-light" >Oceania</option>
+                                    <option selected>All</option>
+                                    <option>Africa</option>
+                                    <option>Americas</option>
+                                    <option>Asia</option>
+                                    <option>Europe</option>
+                                    <option>Oceania</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="nbOfCapital" class="text-light">Number of flag : </label>
-                                <span id="rangevalFlag" class="text-light">10</span></br>
+                                <label for="nbOfCapital" >Number of flag : </label>
+                                <span id="rangevalFlag" >10</span></br>
                                 <input type="range" class="w-100" id="nbOfFlag" name="nbOfFlag" min="5" max="20" value="10" step="5" onInput="$('#rangevalFlag').html(parseInt($(this).val()))">
                             </div>
                             <button id="StartFlagQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfFlag).val()),$(continentFlag).val(),'flag')">Start</button>
@@ -84,22 +83,22 @@
                     <!------------------------------- CAPITAL QUIZ ------------------------------->
 
                     <div class="quizMenu">
-                        <a id="capitalQuiz" class="nav-link text-light text-center ">CAPITAL QUIZ</a>
-                        <div id="CapitalQuizParameter" class="quizParameters bg-dark">
+                        <a id="capitalQuiz" class="nav-link text-center ">CAPITAL QUIZ</a>
+                        <div class="quizParameters">
                             <div class="form-group mb-2">
-                                <label for="continent" class="text-light mb-1">Continents</label></br>
+                                <label for="continent" class="mb-1">Continents</label></br>
                                 <select class="form-control bg-dark text-light" name="continentCapital" id="continentCapital">
-                                    <option class="text-light" selected>All</option>
-                                    <option class="text-light" >Africa</option>
-                                    <option class="text-light" >Americas</option>
-                                    <option class="text-light" >Asia</option>
-                                    <option class="text-light" >Europe</option>
-                                    <option class="text-light" >Oceania</option>
+                                    <option selected>All</option>
+                                    <option>Africa</option>
+                                    <option>Americas</option>
+                                    <option>Asia</option>
+                                    <option>Europe</option>
+                                    <option>Oceania</option>
                                 </select>
                             </div>
                             <div class="form-group mb-2">
-                                <label for="nbOfCapital" class="text-light">Number of capital : </label>
-                                <span id="rangevalCapital" class="text-light">10</span></br>
+                                <label for="nbOfCapital">Number of capital : </label>
+                                <span id="rangevalCapital">10</span></br>
                                 <input type="range" class="w-100" id="nbOfCapital" name="nbOfCapital" min="5" max="20" value="10" step="5" onInput="$('#rangevalCapital').html(parseInt($(this).val()))">
                             </div>
                             <button id="StartCapitalQuiz" class="btn btn-light w-100  mx-auto"  onclick="fetchCountryData(parseInt($(nbOfCapital).val()),$(continentCapital).val(),'capital')">Start</button>
@@ -110,7 +109,7 @@
         </nav>
 
        <!----------- HOME PAGE--------------->
-        <div id="menu" class="container mx-auto mt-5 text-light">
+        <div id="menu" class="container">
             <h3>Welcome to Geopardy, a prototype webApp for geography games.</h3></br>
             <h3>The data of the countries are fetched at the <a  href="https://restcountries.eu">restcountries.eu</a> API.</h3>
         </div>
@@ -119,13 +118,13 @@
         <div id="QuizCarousel" class="carousel slide"></div>
 
         <!--------------MAP QUIZ------------------>
-        <div id="QuizMap" class="container mx-auto text-light w-75" ></div>
+        <div id="QuizMap" class="container" ></div>
 
         <!-----------LOADING ICON--------------->
         <img id="loading" src="images/earth3.png">
 
-        <footer class="text-center w-100 " style="position: fixed;bottom: 0%;">
-            <p class="text-light">PoloScolo © - 2021</p>
+        <footer>
+            <p>PoloScolo © - 2021</p>
         </footer>
 
         <script src="js\jquery.min.js"></script>

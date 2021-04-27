@@ -87,9 +87,7 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
         counterValue = 1;
         score = 0;
     
-        var counter = document.createElement("h1");
-        
-        counter.setAttribute("style","position: absolute ;top: 0%;right:5%;z-index:999;color:white");
+        var counter = document.createElement("h2");
         counter.id="counter";
         counter.innerText = counterValue+"/"+nbOfQuestion;
         carousel.appendChild(counter);
@@ -97,41 +95,39 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
         for (let i = 0; i < nbOfQuestion; i++)  {
     
           var slide = document.createElement("div");
-          slide.setAttribute("class","carousel-item");
+          slide.classList.add("carousel-item");
           if (i==0){
             slide.classList.add("active"); 
           }
           slide.id ="slide"+i;
     
           var card = document.createElement("div");
-          card.classList.add("card","d-block","w-75","h-100","mx-auto","bg-dark");
-          card.setAttribute("style","border:none");
+          card.classList.add("card");
           slide.appendChild(card);
     
           if(quizType=="flag"){
             var flag = document.createElement("img");
-            flag.classList.add("card-img-top","h-50");
+            flag.classList.add("card-img-top");
             flag.setAttribute("src","images/flags/"+flags[i]+".svg");
             card.appendChild(flag);
           }
     
           if(quizType=="capital"){
             var capital = document.createElement("h1");
-            capital.classList.add("card-title","text-light","text-center");
-            capital.setAttribute("style","padding : 10%;background-color:#404040;border-radius:15px; width : 90%; margin:auto");
+            capital.classList.add("card-title");
             capital.innerText = capitales[i];
             card.appendChild(capital);
           }
     
           var cardBody = document.createElement("div");
-          cardBody.setAttribute("class","card-body","bg-dark");
-          cardBody.setAttribute("style","margin-top:30px");
+          cardBody.classList.add("card-body");
           card.appendChild(cardBody);
     
           var answerGrid = document.createElement("div");
-          answerGrid.classList.add("container","text-center");
+          answerGrid.classList.add("answer-grid");
+
           var row = document.createElement("div");
-          row.classList.add("row","g-3","text-light");
+          row.classList.add("row","g-3");
           answerGrid.appendChild(row);
     
           var answerIndex = [...Array(names.length).keys()];
@@ -145,8 +141,7 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
             col.classList.add("col-6");
             
             var answer = document.createElement("button");
-            answer.classList.add("btn","btn-outline-light","w-100", "answerButton");
-            answer.setAttribute("style","height:60px");
+            answer.classList.add("btn","btn-outline-light","answer-button");
             answer.setAttribute("onclick","checkAnswer("+i+","+j+")");
             
             randNb = randomNumber(answerIndex,excludeAnswerIndexes);
@@ -169,8 +164,7 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
         scoreSlide.classList.add("carousel-item");
     
         var scoreDiv = document.createElement("div");
-        scoreDiv.setAttribute("style","display : flex;flex-direction : column");
-        scoreDiv.classList.add("w-50","mx-auto","mt-5");
+        scoreDiv.classList.add("carousel-score");
     
         var scoreText = document.createElement("p");
         scoreText.classList.add("text-center","text-light");
@@ -178,19 +172,19 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
         scoreDiv.appendChild(scoreText);
     
         var restartWithSameDataButton = document.createElement("button");
-        restartWithSameDataButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
+        restartWithSameDataButton.classList.add("btn","btn-light","menu-button");
         restartWithSameDataButton.innerHTML = "↺ same "+quizType+"s";
         scoreDiv.appendChild(restartWithSameDataButton);
     
         restartWithSameDataButton.onclick = function() {
+          carousel.innerHTML="";
           goodAnswersindexes=[];
-          score = 0;
           loading.style.display="block";
           createCarouselQuiz(QuizType,nbOfQuestion);
         }
     
         var restartWithDifferentDataButton = document.createElement("button");
-        restartWithDifferentDataButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
+        restartWithDifferentDataButton.classList.add("btn","btn-light","menu-button");
         restartWithDifferentDataButton.innerText = "↺ new "+QuizType+"s";
         scoreDiv.appendChild(restartWithDifferentDataButton);
     
@@ -201,7 +195,7 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
         }
     
         var backToMenuButton = document.createElement("button");
-        backToMenuButton.classList.add("btn","btn-light","mx-auto","w-25","mb-2");
+        backToMenuButton.classList.add("btn","btn-light","menu-button");
         backToMenuButton.innerText = "Menu";
         scoreDiv.appendChild(backToMenuButton);
     
@@ -209,7 +203,6 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
           flags=[];
           names=[];
           goodAnswersindexes=[];
-          score=0;
           carousel.innerHTML="";
           menu.style.display="block";
         }
@@ -224,7 +217,9 @@ function createCarouselQuiz(QuizType,nbOfQuestion){
 //---------------Checking if the answer is correct or not--------------//
 function checkAnswer(QuestionIndex,AnswerIndex){
 
-        var answerButtons = document.getElementsByClassName('answerButton');
+  console.log("checking the answer");
+
+        var answerButtons = document.getElementsByClassName('answer-button');
       
         if(AnswerIndex==goodAnswersindexes[QuestionIndex]){
           answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="green";
@@ -232,10 +227,10 @@ function checkAnswer(QuestionIndex,AnswerIndex){
         }else {
           answerButtons[QuestionIndex*4+AnswerIndex].style.backgroundColor="red";
           answerButtons[QuestionIndex*4+goodAnswersindexes[QuestionIndex]].style.backgroundColor="green";
-          }
-          for (i = QuestionIndex*4 ; i < QuestionIndex*4+4 ; i++){
-            answerButtons[i].disabled =true;
-          }
+        }
+        for (i = QuestionIndex*4 ; i < QuestionIndex*4+4 ; i++){
+          answerButtons[i].disabled =true;
+        }
           carouselNext(1500);
           document.getElementById('score').innerHTML = "Score : "+score + "/"+nbofquestion;
 }
