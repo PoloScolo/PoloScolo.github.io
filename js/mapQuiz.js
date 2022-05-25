@@ -54,7 +54,7 @@ async function fetchMapData(nbOfQuestion,Region){
 
         //definition of the fetching URL
         if (Region=="All"){URL = 'https://restcountries.eu/rest/v2/all'}
-        else {URL = 'https://restcountries.eu/rest/v2/region/'+Region;}
+        else {URL = 'https://restcountries.eu/rest/v3.1/region/'+Region;}
 
         
         //fetching  data
