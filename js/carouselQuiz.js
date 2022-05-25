@@ -32,8 +32,8 @@ async function fetchCountryData(nbOfQuestion,Region,QuizType){
     }
 
     //definition of the fetching URL
-    if (Region=="All"){URL = 'https://restcountries.eu/rest/v2/all'}
-    else {URL = 'https://restcountries.eu/rest/v2/region/'+Region;}
+    if (Region=="All"){URL = 'https://restcountries.com/v3.1/all'}
+    else {URL = 'https://restcountries.com/v3.1/region/'+Region;}
     
     //fetching  data
     await fetch(URL)
